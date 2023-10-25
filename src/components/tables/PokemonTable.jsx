@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import {
+  Box,
   Paper,
   Table,
   TableBody,
@@ -36,16 +37,20 @@ const PokemonTable = ({
   handleChangeRowsPerPage,
 }) => {
   return (
-    <div>
+    <Box component="div">
       <TableContainer
         component={Paper}
-        style={{ borderRadius: "10px", marginTop: "30px" }}
+        sx={{ borderRadius: "10px", marginTop: "30px" }}
       >
         <Table>
-          <TableHead style={{ backgroundColor: "#f4f6f8" }}>
+          <TableHead sx={{ backgroundColor: "#f4f6f8" }}>
             <TableRow>
               {tableColumns.map((column) => (
-                <TableCell style={{ color: "#687684" }} key={column.id}>
+                <TableCell
+                  align="center"
+                  sx={{ color: "#687684" }}
+                  key={column.id}
+                >
                   {column.id}
                 </TableCell>
               ))}
@@ -54,16 +59,16 @@ const PokemonTable = ({
           <TableBody>
             {paginatedData.map((pokemon) => (
               <TableRow key={pokemon.id}>
-                <TableCell>{pokemon.id}</TableCell>
-                <TableCell>{pokemon.name}</TableCell>
-                <TableCell>{pokemon.type}</TableCell>
-                <TableCell>{pokemon.hp}</TableCell>
-                <TableCell>{pokemon.attack}</TableCell>
-                <TableCell>{pokemon.defense}</TableCell>
-                <TableCell>{pokemon.special_attack}</TableCell>
-                <TableCell>{pokemon.special_defense}</TableCell>
-                <TableCell>{pokemon.speed}</TableCell>
-                <TableCell>{calculatePower(pokemon)}</TableCell>
+                <TableCell align="center">{pokemon.id}</TableCell>
+                <TableCell align="center">{pokemon.name}</TableCell>
+                <TableCell align="center">{pokemon.type}</TableCell>
+                <TableCell align="center">{pokemon.hp}</TableCell>
+                <TableCell align="center">{pokemon.attack}</TableCell>
+                <TableCell align="center">{pokemon.defense}</TableCell>
+                <TableCell align="center">{pokemon.special_attack}</TableCell>
+                <TableCell align="center">{pokemon.special_defense}</TableCell>
+                <TableCell align="center">{pokemon.speed}</TableCell>
+                <TableCell align="center">{calculatePower(pokemon)}</TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -79,7 +84,7 @@ const PokemonTable = ({
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
-    </div>
+    </Box>
   );
 };
 

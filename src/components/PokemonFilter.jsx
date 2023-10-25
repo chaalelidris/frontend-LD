@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Container, Typography } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 import { useState, useEffect } from "react";
 
 /* Hooks */
@@ -52,21 +52,23 @@ const PokemonFilter = ({ data }) => {
 
   return (
     <Container>
-      <div
-        style={{
+      <Box
+        component="section"
+        sx={{
           grid: "initial",
-          padding: "12px",
+          p: "18px",
           boxShadow: "0 10px 8px rgb(0 0 0 / 0.04)",
           borderRadius: "10px",
-          border: "1px solid #f5f6f7",
+          border: "1px solid #f4f6f8",
         }}
       >
-        <div
-          style={{
+        <Box
+          sx={{
             display: "flex",
+            flexDirection: { xs: "column", md: "row" },
             alignItems: "center",
             gap: "12px",
-            marginBottom: "30px",
+            mb: "20px",
           }}
         >
           <Input
@@ -82,10 +84,11 @@ const PokemonFilter = ({ data }) => {
             icon="favorite"
             placeholder="Power threshold"
           />
-        </div>
+        </Box>
+
         <Typography variant="body1">Min Power: {minPower}</Typography>
         <Typography variant="body1">Max Power: {maxPower}</Typography>
-      </div>
+      </Box>
 
       <PokemonTable
         page={page}

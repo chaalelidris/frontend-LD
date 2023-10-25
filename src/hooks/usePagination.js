@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const usePagination = (data, initialRowsPerPage = 5) => {
+const usePagination = (data, initialRowsPerPage = 10) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(initialRowsPerPage);
   const [startIndex, setStartIndex] = useState(0);
