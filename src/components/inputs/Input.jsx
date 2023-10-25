@@ -15,7 +15,7 @@ const Input = ({ value, onChange, type, icon, placeholder }) => {
         p: "8px 10px",
       }}
       startAdornment={
-        <InputAdornment sx={{ color: "inherit", mr: "8px" }}>
+        <InputAdornment position="start" sx={{ color: "inherit", mr: "8px" }}>
           {icon === "search" && <SearchIcon />}
           {icon === "favorite" && <FavoriteBorder />}
         </InputAdornment>
