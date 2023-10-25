@@ -45,9 +45,14 @@ const PokemonFilter = ({ data }) => {
 
   useEffect(() => {
     // Calculate min and max powers when data changes
-    const powers = paginatedData.map(calculatePower);
-    setMinPower(Math.min(...powers));
-    setMaxPower(Math.max(...powers));
+    if (paginatedData.length > 0) {
+      const powers = paginatedData.map(calculatePower);
+      setMinPower(Math.min(...powers));
+      setMaxPower(Math.max(...powers));
+    } else {
+      setMinPower("None");
+      setMaxPower("None");
+    }
   }, [paginatedData]);
 
   return (
