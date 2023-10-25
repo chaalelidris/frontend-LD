@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { Box, Container, Typography } from "@mui/material";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 /* Hooks */
 import usePagination from "../hooks/usePagination";
@@ -18,16 +18,6 @@ const PokemonFilter = ({ data }) => {
   const [minPower, setMinPower] = useState(0);
   const [maxPower, setMaxPower] = useState(0);
 
-  const handleSearchChange = (event) => {
-    setNameSearch(event.target.value);
-    setPage(0);
-  };
-
-  const handleThresholdChange = (event) => {
-    setThreshold(event.target.value);
-    setPage(0);
-  };
-
   const filteredData = data.filter(
     (pokemon) =>
       pokemon.name.toLowerCase().includes(nameSearch.toLowerCase()) &&
@@ -42,6 +32,22 @@ const PokemonFilter = ({ data }) => {
     handleChangePage,
     handleChangeRowsPerPage,
   } = usePagination(filteredData);
+
+  const handleSearchChange = useCallback(
+    (event) => {
+      setNameSearch(event.target.value);
+      setPage(0);
+    },
+    [setPage]
+  );
+
+  const handleThresholdChange = useCallback(
+    (event) => {
+      setThreshold(event.target.value);
+      setPage(0);
+    },
+    [setPage]
+  );
 
   useEffect(() => {
     // Calculate min and max powers when data changes
