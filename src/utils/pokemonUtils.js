@@ -1,5 +1,3 @@
-// pokemonUtils.js
-
 // Utility function to calculate power
 export function calculatePower(pokemon) {
     return (

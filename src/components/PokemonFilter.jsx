@@ -1,17 +1,25 @@
 /* eslint-disable react/prop-types */
-import { TablePagination, TextField, Typography } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 import { useState, useEffect } from "react";
+
+/* Hooks */
 import usePagination from "../hooks/usePagination";
+
+/* Util */
 import { calculatePower } from "../utils/pokemonUtils";
 
-const PokemonFilter = ({ data, setPage }) => {
-  const [searchQuery, setSearchQuery] = useState("");
+/* Component */
+import PokemonTable from "./tables/PokemonTable";
+import Input from "./inputs/Input";
+
+const PokemonFilter = ({ data }) => {
+  const [nameSearch, setNameSearch] = useState("");
   const [threshold, setThreshold] = useState("");
   const [minPower, setMinPower] = useState(0);
   const [maxPower, setMaxPower] = useState(0);
 
   const handleSearchChange = (event) => {
-    setSearchQuery(event.target.value);
+    setNameSearch(event.target.value);
     setPage(0);
   };
 
@@ -22,12 +30,13 @@ const PokemonFilter = ({ data, setPage }) => {
 
   const filteredData = data.filter(
     (pokemon) =>
-      pokemon.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
+      pokemon.name.toLowerCase().includes(nameSearch.toLowerCase()) &&
       (threshold === "" || calculatePower(pokemon) >= parseInt(threshold, 10))
   );
 
   const {
     page,
+    setPage,
     rowsPerPage,
     paginatedData,
     handleChangePage,
@@ -42,37 +51,51 @@ const PokemonFilter = ({ data, setPage }) => {
   }, [paginatedData]);
 
   return (
-    <div>
-      <TextField
-        label="Search by Name"
-        value={searchQuery}
-        onChange={handleSearchChange}
-        fullWidth
-        margin="normal"
-      />
-      <TextField
-        label="Search by Threshold"
-        type="number"
-        value={threshold}
-        onChange={handleThresholdChange}
-        fullWidth
-        margin="normal"
-      />
+    <Container>
+      <div
+        style={{
+          grid: "initial",
+          padding: "12px",
+          boxShadow: "0 10px 8px rgb(0 0 0 / 0.04)",
+          borderRadius: "10px",
+          border: "1px solid #f5f6f7",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "12px",
+            marginBottom: "30px",
+          }}
+        >
+          <Input
+            value={nameSearch}
+            onChange={handleSearchChange}
+            icon="search"
+            placeholder="Search..."
+          />
+          <Input
+            value={threshold}
+            onChange={handleThresholdChange}
+            type="number"
+            icon="favorite"
+            placeholder="Power threshold"
+          />
+        </div>
+        <Typography variant="body1">Min Power: {minPower}</Typography>
+        <Typography variant="body1">Max Power: {maxPower}</Typography>
+      </div>
 
-      <Typography variant="subtitle1">
-        Min Power: {minPower}, Max Power: {maxPower}
-      </Typography>
-
-      <TablePagination
-        rowsPerPageOptions={[5, 10, 25]} // rows per page
-        component="div"
-        count={filteredData.length}
-        rowsPerPage={rowsPerPage}
+      <PokemonTable
         page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
+        paginatedData={paginatedData}
+        filteredData={filteredData}
+        handleChangePage={handleChangePage}
+        handleChangeRowsPerPage={handleChangeRowsPerPage}
+        rowsPerPage={rowsPerPage}
       />
-    </div>
+    </Container>
   );
 };
 

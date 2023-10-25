@@ -1,6 +1,6 @@
 // src/App.js
 import { useEffect, useState } from "react";
-import PokemonTable from "./components/PokemonTable";
+import PokemonFilter from "./components/PokemonFilter";
 
 const App = () => {
   const [pokemonData, setPokemonData] = useState([]);
@@ -21,9 +21,8 @@ const App = () => {
   }, []);
 
   return (
-    <div>
-      <h1>Pokemon Table</h1>
-      <PokemonTable data={pokemonData} />
+    <div style={{ marginTop: "60px" }}>
+      <PokemonFilter data={pokemonData} />
     </div>
   );
 };
