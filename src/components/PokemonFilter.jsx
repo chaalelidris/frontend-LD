@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { Box, Container, Typography } from "@mui/material";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 
 /* Hooks */
 import usePagination from "../hooks/usePagination";
@@ -18,11 +18,13 @@ const PokemonFilter = ({ data }) => {
   const [minPower, setMinPower] = useState(0);
   const [maxPower, setMaxPower] = useState(0);
 
-  const filteredData = data.filter(
-    (pokemon) =>
-      pokemon.name.toLowerCase().includes(nameSearch.toLowerCase()) &&
-      (threshold === "" || calculatePower(pokemon) >= parseInt(threshold, 10))
-  );
+  const filteredData = useMemo(() => {
+    return data.filter(
+      (pokemon) =>
+        pokemon.name.toLowerCase().includes(nameSearch.toLowerCase()) &&
+        (threshold === "" || calculatePower(pokemon) >= +threshold)
+    );
+  }, [data, nameSearch, threshold]);
 
   const {
     page,
@@ -97,18 +99,24 @@ const PokemonFilter = ({ data }) => {
           />
         </Box>
 
-        <Typography variant="body1">Min Power: {minPower}</Typography>
-        <Typography variant="body1">Max Power: {maxPower}</Typography>
+        {minPower && (
+          <Typography variant="body1">Min Power: {minPower}</Typography>
+        )}
+        {maxPower && (
+          <Typography variant="body1">Max Power: {maxPower}</Typography>
+        )}
       </Box>
 
-      <PokemonTable
-        page={page}
-        paginatedData={paginatedData}
-        filteredData={filteredData}
-        handleChangePage={handleChangePage}
-        handleChangeRowsPerPage={handleChangeRowsPerPage}
-        rowsPerPage={rowsPerPage}
-      />
+      {paginatedData && (
+        <PokemonTable
+          page={page}
+          paginatedData={paginatedData}
+          filteredData={filteredData}
+          handleChangePage={handleChangePage}
+          handleChangeRowsPerPage={handleChangeRowsPerPage}
+          rowsPerPage={rowsPerPage}
+        />
+      )}
     </Container>
   );
 };

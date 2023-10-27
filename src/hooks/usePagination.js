@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 
 const usePagination = (data, initialRowsPerPage = 10) => {
   const [page, setPage] = useState(0);
@@ -24,7 +24,8 @@ const usePagination = (data, initialRowsPerPage = 10) => {
     setEndIndex(newEndIndex);
   }, [page, rowsPerPage]);
 
-  const paginatedData = data.slice(startIndex, endIndex);
+  const paginatedData = useMemo(() => { return (data.slice(startIndex, endIndex)) }, [data, endIndex, startIndex]);
+
 
   return {
     page,
