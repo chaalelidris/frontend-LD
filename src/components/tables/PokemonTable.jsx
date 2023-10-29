@@ -65,7 +65,9 @@ const PokemonTable = ({
                 <TableRow key={pokemon.id}>
                   <TableCell align="center">{pokemon?.id}</TableCell>
                   <TableCell align="center">{pokemon?.name}</TableCell>
-                  <TableCell align="center">{pokemon?.type}</TableCell>
+                  <TableCell align="center">
+                    {pokemon?.type.join(", ")}
+                  </TableCell>
                   <TableCell align="center">{pokemon?.hp}</TableCell>
                   <TableCell align="center">{pokemon?.attack}</TableCell>
                   <TableCell align="center">{pokemon?.defense}</TableCell>
